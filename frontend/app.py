@@ -17,7 +17,7 @@ with st.sidebar:
     st.header("Vos données")
     uploaded_file = st.file_uploader(
         "Importez un fichier CSV ou Excel",
-        type=["csv", "xlsx", "xls"]
+        type=["csv", "xlsx"]
     )
     if uploaded_file is not None:
         st.success(f"**{uploaded_file.name}**")
