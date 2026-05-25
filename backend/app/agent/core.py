@@ -40,10 +40,13 @@ Question de l'utilisateur : {question}
 
 Génère du code Python qui répond à cette question en utilisant un DataFrame pandas appelé `df`.
 Le code doit :
-1. Calculer la réponse à la question
-2. Stocker le résultat textuel dans une variable `result_text` (string)
-3. Si pertinent, créer un graphique plotly et le stocker dans `result_fig` (sinon `result_fig = None`)
-4. Si pertinent, stocker un tableau résultat dans `result_df` (DataFrame pandas, sinon `result_df = None`)
+1. Importer tous les modules nécessaires en début de code (ex: import re, import json...)
+2. Calculer la réponse à la question
+3. Stocker le résultat textuel dans une variable `result_text` (string, sans backslash dans les f-strings)
+4. Si pertinent, créer un graphique plotly et le stocker dans `result_fig` (sinon `result_fig = None`)
+5. Si pertinent, stocker un tableau résultat dans `result_df` (DataFrame pandas, sinon `result_df = None`)
+6. Ne jamais utiliser de caractères spéciaux (accents, €, ', ") dans les noms de colonnes créées ou les clés de dictionnaire. Utiliser des noms simples comme 'chiffre_affaires', 'total', 'moyenne'.
+7. Toujours convertir result_text en string avec str() avant de l'assigner.
 
 Retourne UNIQUEMENT le code Python, sans explication, sans balises markdown.
 """

@@ -1,0 +1,25 @@
+date,produit,categorie,prix_unitaire,quantite,region,vendeur,note_client
+2024-01-05,Laptop Pro,Informatique,1299.99,3,Nord,Alice,4.5
+2024-01-08,Souris Sans Fil,Informatique,29.99,15,Sud,Bob,4.2
+2024-01-12,Bureau Ergonomique,Mobilier,349.99,2,Est,Alice,4.8
+2024-01-15,Chaise Gaming,Mobilier,199.99,5,Ouest,Clara,3.9
+2024-01-18,Écran 4K,Informatique,599.99,4,Nord,Bob,4.6
+2024-01-22,Clavier Mécanique,Informatique,89.99,8,Sud,Clara,4.3
+2024-01-25,Lampe Bureau,Mobilier,49.99,12,Est,Alice,4.1
+2024-02-02,Laptop Pro,Informatique,1299.99,2,Ouest,Bob,4.7
+2024-02-05,Webcam HD,Informatique,79.99,10,Nord,Clara,4.0
+2024-02-08,Tapis de Souris,Informatique,19.99,20,Sud,Alice,3.8
+2024-02-12,Étagère,Mobilier,129.99,3,Est,Bob,4.4
+2024-02-15,Casque Audio,Informatique,149.99,6,Ouest,Clara,4.9
+2024-02-19,Bureau Ergonomique,Mobilier,349.99,1,Nord,Alice,4.8
+2024-02-22,Écran 4K,Informatique,599.99,2,Sud,Bob,4.5
+2024-02-26,Chaise Gaming,Mobilier,199.99,4,Est,Clara,4.2
+2024-03-01,Laptop Pro,Informatique,1299.99,5,Ouest,Alice,4.6
+2024-03-04,Clavier Mécanique,Informatique,89.99,7,Nord,Bob,4.1
+2024-03-08,Lampe Bureau,Mobilier,49.99,9,Sud,Clara,3.7
+2024-03-12,Webcam HD,Informatique,79.99,6,Est,Alice,4.3
+2024-03-15,Souris Sans Fil,Informatique,29.99,18,Ouest,Bob,4.0
+2024-03-19,Casque Audio,Informatique,149.99,4,Nord,Clara,4.8
+2024-03-22,Étagère,Mobilier,129.99,5,Sud,Alice,4.5
+2024-03-26,Bureau Ergonomique,Mobilier,349.99,3,Est,Bob,4.7
+2024-03-29,Tapis de Souris,Informatique,19.99,25,Ouest,Clara,3.9
