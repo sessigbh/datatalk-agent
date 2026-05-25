@@ -28,8 +28,16 @@ async def analyze_route(
     finally:
         os.unlink(tmp_path)
 
+    figure_json = None
+    if results.get("figure") is not None:
+        figure_json = results["figure"].to_json()
+
+    dataframe_json = None
+    if results.get("dataframe") is not None:
+        dataframe_json = results["dataframe"].to_dict(orient="records")
+
     return {
         "text": results.get("text"),
-        "has_figure": results.get("figure") is not None,
-        "has_dataframe": results.get("dataframe") is not None,
+        "figure": figure_json,
+        "dataframe": dataframe_json,
     }
