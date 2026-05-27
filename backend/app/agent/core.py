@@ -47,6 +47,7 @@ Le code doit :
 5. Si pertinent, stocker un tableau résultat dans `result_df` (DataFrame pandas, sinon `result_df = None`)
 6. Ne jamais utiliser de caractères spéciaux (accents, €, ', ") dans les noms de colonnes créées ou les clés de dictionnaire. Utiliser des noms simples comme 'chiffre_affaires', 'total', 'moyenne'.
 7. Toujours convertir result_text en string avec str() avant de l'assigner.
+8. Pour les graphiques, créer UN SEUL graphique simple (pas de subplots multiples). Préférer plotly.express à plotly.graph_objects.
 
 Retourne UNIQUEMENT le code Python, sans explication, sans balises markdown.
 """
@@ -58,7 +59,7 @@ def call_claude(prompt: str) -> str:
     
     message = client.messages.create(
         model=MODEL,
-        max_tokens=1024,
+        max_tokens=4096,
         messages=[
             {"role": "user", "content": prompt}
         ]
@@ -68,7 +69,54 @@ def call_claude(prompt: str) -> str:
     # .content contien les retours de notre requête,
     # [0] pour le premier élément, sachant qu'on attend une réponse unique,
     # .text pour récupérer notre réponse dont on sait que c'est du texte
+    # print("=== CODE GÉNÉRÉ PAR CLAUDE ===")
+    # print(code)
+    # print("==============================")
     return code
+    
+
+def call_claude_with_retry(prompt: str, df: pd.DataFrame, max_retries: int = 3) -> dict:
+    """Appelle Claude, exécute le code, et réessaie si erreur — jusqu'à max_retries fois."""
+    
+    code = call_claude(prompt)
+    last_error = None
+    
+    for attempt in range(max_retries):
+        try:
+            # Valider la syntaxe d'abord
+            import ast
+            ast.parse(code)
+            
+            # Exécuter le code
+            result = execute_code(code, df)
+            return result
+            
+        except Exception as e:
+            last_error = str(e)
+            print(f"=== TENTATIVE {attempt + 1} ÉCHOUÉE ===")
+            print(f"Erreur : {last_error}")
+            print(f"Code fautif :\n{code}")
+            
+            if attempt < max_retries - 1:
+                # Demander à Claude de corriger
+                correction_prompt = f"""Le code Python suivant a produit une erreur.
+
+Code :
+{code}
+
+Erreur : {last_error}
+
+Corrige ce code. Respecte les mêmes règles :
+- Utilise le DataFrame pandas appelé `df`
+- Stocke le résultat dans result_text (str), result_fig, result_df
+- N'utilise pas de caractères spéciaux dans les noms de colonnes
+- Importe tous les modules nécessaires
+- Retourne UNIQUEMENT le code Python corrigé, sans markdown.
+"""
+                code = call_claude(correction_prompt)
+    
+    # Toutes les tentatives ont échoué
+    raise ValueError(f"Impossible de générer un code valide après {max_retries} tentatives. Dernière erreur : {last_error}")
 
 
 def execute_code(code: str, df: pd.DataFrame) -> dict:
@@ -108,10 +156,6 @@ def analyze(question: str, file_path: str) -> dict:
     # Étape 2 : construire le prompt
     prompt = build_prompt(question, df)
     
-    # Étape 3 : appeler Claude
-    code = call_claude(prompt)
-    
-    # Étape 4 : exécuter le code et retourner les résultats
-    results = execute_code(code, df)
+    results = call_claude_with_retry(prompt, df)
     
     return results
