@@ -66,12 +66,10 @@ def call_claude(prompt: str) -> str:
     )
     
     code = message.content[0].text.strip() 
-    # .content contien les retours de notre requête,
-    # [0] pour le premier élément, sachant qu'on attend une réponse unique,
-    # .text pour récupérer notre réponse dont on sait que c'est du texte
-    # print("=== CODE GÉNÉRÉ PAR CLAUDE ===")
-    # print(code)
-    # print("==============================")
+    # .content contains the request's answer,
+    # [0] to select the first element, and we know we only expect one,
+    # .text to select the answer, knowing we only expect a text
+
     return code
     
 
